@@ -1,5 +1,5 @@
 import json
-
+console.log("rajat test")
 def lambda_handler(event, context):
     try:
         # fetching data from event
