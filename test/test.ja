@@ -1,0 +1,32 @@
+import json
+
+def lambda_handler(event, context):
+    try:
+        # fetching data from event
+        message = event['Records'][0]['message']
+
+        #Wsplitting string based on semicolon
+        str_list = message.split(";")
+
+        #extracting the raw message
+        raw_message = str_list[3]
+
+        # getting the date of birth and passport number
+        pasbirth = raw_message[31:39]
+        pasdocnu = raw_message[39:51].strip()
+
+        #building response
+        response = {
+            "PassportNumber": pasdocnu,
+            "DateOfBirth": pasbirth
+        }
+
+        return {
+            'statusCode': 200,
+            'body': json.dumps(response)
+        }
+    except Exception as e:
+        return {
+            'statusCode': 500,
+            'body': json.dumps(str(e))
+        }
